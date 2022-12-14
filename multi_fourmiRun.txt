@@ -10,7 +10,7 @@ nom_font = pygame.font.SysFont(None,25)
 longueur_e = 1200
 largeur_e = 800
 window = pygame.display.set_mode((longueur_e,largeur_e))
-pygame.display.set_caption("basic mode")
+pygame.display.set_caption(titre)
 clock = pygame.time.Clock()
 vitesse =20
 fond = pygame.Surface((longueur_e,largeur_e))
