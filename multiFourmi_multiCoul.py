@@ -124,7 +124,7 @@ while True :
             else :
                 fourmi.deplacer(0, listeCD) #le fond de l'écran (blanc) n'est pas encore enregistré dans le plan
     compte += 1
-    window.blit(fond,(0,0)) #imprimera les fourmi et noms au-dessus du fond
+    window.blit(fond,(0,0)) #imprimera les fourmis et noms au-dessus du fond
     for fourmi in fourmis :
         window.blit(fourmi.img, (fourmi.x - cote_carre/2, fourmi.y - cote_carre/2)) #centre fourmi sur carreau
         if vitesse < 10 or (compte-1)%(vitesse/10) == 0: # ne met pas à jour le nom à chaque signal d'horloge sinon illisible
