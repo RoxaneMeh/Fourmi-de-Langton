@@ -8,7 +8,7 @@ class Ant():
         self.color = color
         self.x, self.y = pos
         self.increments = deque([(1,0),(0,1),(-1,0),(0,-1)]) #on utilise deque qui réunit les propriétés de la pile et de la file 
-#La fourmi peut se déplacer dans 4 directions; (1,0), (0,1), (-1,0), (0,-1)
+#La fourmi peut se déplacer dans 4 directions; (1,0), (0,1), (-1,0), (0,-1), ici deque écrit dans le sens des aiguilles d'une montre (si case blanche), donc rotate(-1) sinon (voir après)
 #deque provides an O(1) time complexity for append and pop operations as compared to a list that provides O(n) time complexity.
         self.increments.rotate(randint(0,4))
     def run(self): #définition des règles que doit suivre la fourmi pour se déplacer 
@@ -27,8 +27,6 @@ class Ant():
         dx, dy = self.increments[0] #le premier élément de deque est donc l'incrément du prochain pas de la fourmi 
         self.x = (self.x + dx) % self.app.COLS #pour que la fourmi ne quitte pas les frontières du tableau on prend le reste
         self.y = (self.y + dy) % self.app.ROWS
-
-#On supposera que la fourmi commence son déplacement sur une case blanche 
 
 
 class App():
