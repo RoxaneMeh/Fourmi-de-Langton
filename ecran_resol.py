@@ -56,14 +56,11 @@ class InputBox:
         
 
     def update(self):
-        # Resize the box if the text is too long.
         width = max(200, self.txt_surface.get_width()+10)
         self.rect.w = width
 
     def draw(self, screen):
-        # Blit the text.
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
 
 def saisie_motif(e, chaine):### expression rationnelle, vérifie zone de texte
@@ -106,6 +103,3 @@ def main():
 if __name__ == '__main__':
     main()
     pg.quit()
-
-
-#https://coderslegacy.com/python/text-input-box-in-pygame/
