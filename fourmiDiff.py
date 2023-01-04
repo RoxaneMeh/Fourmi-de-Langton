@@ -10,9 +10,11 @@ titre = ("Mode classique") #titre dépendra du mode choisi, non tous définis po
 large_font = pygame.font.SysFont(None,50)
 small_font = pygame.font.SysFont(None,25)
 med_font = pygame.font.SysFont(None,35)
-longueur_e = 1400
-largeur_e = 800
-window = pygame.display.set_mode((longueur_e,largeur_e))
+#longueur_e = 1400
+#largeur_e = 800
+#window = pygame.display.set_mode((longueur_e,largeur_e))
+window = pygame.display.set_mode()
+longueur_e, largeur_e = window.get_size()
 pygame.display.set_caption(titre)
 clock = pygame.time.Clock()
 fond = pygame.Surface((longueur_e,largeur_e))
