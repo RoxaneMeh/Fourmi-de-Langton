@@ -6,7 +6,7 @@ pygame.init()
 
 titre = ("Mode classique") #titre dépendra du mode choisi, non tous définis pour l'instant
 
-
+maxi_font = pygame.font.SysFont(None, 100)
 large_font = pygame.font.SysFont(None,50)
 small_font = pygame.font.SysFont(None,25)
 med_font = pygame.font.SysFont(None,35)
@@ -19,7 +19,6 @@ pygame.display.set_caption(titre)
 clock = pygame.time.Clock()
 fond = pygame.Surface((longueur_e,largeur_e))
 fond.fill("White")
-plan = {}
 orientation = ["haut", "droite", "bas", "gauche"] #liste que sera utilisé comme buffer circulaire
 affichage_pause = large_font.render("ll",True,"Black")
 
@@ -85,7 +84,7 @@ class ant :
         if dep == "R" :
             self.orient = orientation[(orientation.index(self.orient)+2)%4] #orientation opposée
 
-    def deplacer(self,i):
+    def deplacer(self,i, plan):
         self.tourner(self.regles[i][1]) #tourne selon le déplacement correspondant
         new_i = (i + 1)%len(self.regles) #la nouvelle couleur est la couleur suivante dans la liste (-buffer circulaire)
         pygame.draw.rect(fond, self.regles[new_i][0],(self.x,self.y,cote_carre,cote_carre)) #colorie en la nouvelle couleur
@@ -180,7 +179,7 @@ while reponse != "oui" and reponse != "non" :
 if reponse == "oui" :
     getChoix()
 
-def ecran_daccueil():
+def ecran_daccueil2():
     pygame.display.set_caption("accueil")
     fond.fill("White")
     while True :
@@ -199,14 +198,16 @@ def start(nom_mode, vitesse, fourmis, interactif) :
     pygame.display.set_caption(nom_mode)
     Run = True #variable pour mettre en pause
     Aff = True #variable pour afficher ou non les détails autres que le fond
+    plan = {}
     compte = -1
 
     while True :
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT :
-                ecran_daccueil()
-                break
+                pygame.quit()
+                exit()
+
             if interactif and event.type == pygame.MOUSEBUTTONDOWN : #interactif
                 x, y = event.pos
                 #il faut réaligner avec le quadrillage :
@@ -220,6 +221,10 @@ def start(nom_mode, vitesse, fourmis, interactif) :
                     pygame.draw.rect(fond, "Black",(x,y,cote_carre,cote_carre))
 
             if event.type == pygame.KEYDOWN :
+
+                if event.key == pygame.K_ESCAPE :
+                    ecran_daccueil()
+                    break
 
                 if event.key == pygame.K_SPACE :
                     Run = not Run
@@ -238,9 +243,9 @@ def start(nom_mode, vitesse, fourmis, interactif) :
             if compte > 0  : #permet d'inclure l'état initial dans la boucle??
                 for fourmi in fourmis :
                     if (fourmi.pos in plan) :
-                        fourmi.deplacer(plan[fourmi.pos])
+                        fourmi.deplacer(plan[fourmi.pos], plan)
                     else :
-                        fourmi.deplacer(0) #le fond de l'écran (blanc) n'est pas encore enregistré dans le plan
+                        fourmi.deplacer(0, plan) #le fond de l'écran (blanc) n'est pas encore enregistré dans le plan
 
         window.blit(fond,(0,0)) #imprimera les fourmis et noms au-dessus du fond
 
@@ -263,8 +268,88 @@ def start(nom_mode, vitesse, fourmis, interactif) :
             pygame.display.update()
         clock.tick(vitesse)
 
-start(titre, vitesse, fourmis, interactif)
 
+
+class bouton :
+
+    def __init__(self, texte, centre_x, centre_y, couleur = "Blue"):
+        self.texte = texte
+        self.l, bouton.h = large_font.size(texte)
+        self.x = centre_x - self.l/2
+        self.y = centre_y - self.h/2
+        self.pos = self.x, self.y
+        self.surface = large_font.render(texte, True, "White", couleur)
+
+    def collide(self, pos):
+        if self.x <= pos[0] and pos[0] <= self.x + self.l and self.y <= pos[1] and pos[1] <= self.y + self.h :
+            return True
+        return False
+
+
+bouton_originale = bouton("fourmi originale", longueur_e/2, largeur_e/2-100)
+bouton_oui = bouton("  OUI  ", 200, 300, couleur = "Green")
+bouton_non = bouton(" NON ", 600, 300, couleur = "Red")
+bouton_parametres = bouton("Paramètres", longueur_e/2, largeur_e/2 + 100)
+bouton_retour = bouton("<--", 20, 20, couleur = "Black")
+
+#def vitesseQuestion(interactif):
+
+
+def interactifQuestion():
+    pygame.display.set_caption("Paramètres")
+    fond.fill("White")
+    window.blit(fond,(0,0))
+    encadre = pygame.Rect(90, 40, 965, 150)
+    pygame.draw.rect(window,"Black", encadre, 2)
+    window.blit(med_font.render("Le mode interactif consiste à cliquer sur l'écran pour ajouter des carreaux noirs.", True, "Black"), (100,50))
+    window.blit(med_font.render("Si la case est déjà noire, elle devient blanche.", True, "Black"), (100, 90))
+    window.blit(med_font.render("Souhaitez-vous passer en mode interactif ?", True, "Black"), (100, 150))
+    window.blit(bouton_oui.surface,  bouton_oui.pos)
+    window.blit(bouton_non.surface,  bouton_non.pos)
+    window.blit(bouton_retour.surface,  bouton_retour.pos)
+    pygame.display.update()
+    while True :
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT :
+                pygame.quit()
+                exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN :
+                if bouton_oui.collide(event.pos) :
+                    interactif = True
+                    #vitesseQuestion(interactif)
+                if bouton_non.collide(event.pos) :
+                    interactif = False
+                    #vitesseQuestion(interactif)
+                if bouton_retour.collide(event.pos) :
+                    ecran_daccueil()
+
+def ecran_daccueil():
+    pygame.display.set_caption("accueil")
+    fond.fill("White")
+    window.blit(fond,(0,0))
+    window.blit(maxi_font.render("ÉCRAN D'ACCUEIL", True, "Blue"), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 0))
+    window.blit(bouton_originale.surface,  bouton_originale.pos)
+    window.blit(bouton_parametres.surface,  bouton_parametres.pos)
+    pygame.display.update()
+    while True :
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT :
+                pygame.quit()
+                exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN :
+                if bouton_originale.collide(event.pos) :
+                    start("fourmi de Langton originale", 1, [ant("DG", [('White', 'D'), ('Black', 'G')], "ami")], False)
+                elif bouton_parametres.collide(event.pos) :
+                    interactifQuestion()
+
+
+
+ecran_daccueil()
+
+
+#touche échape
 #créer écran d'accueil
 
 #créer jeu, prenant en paramètres des fourmis et des couleurs, vitesse
