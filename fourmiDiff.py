@@ -92,11 +92,11 @@ class ant :
 
 #definir fonction couleur(i, nb_dep) tq couleur(0) = "White", couleur(nb_dep - 1) = "Black"
 def couleur(i, n) :
-	if i == 0 :
-		return "White"
-	if i == n -1 :
-		return "Black"
-	else :
+    if i == 0 :
+        return "White"
+    if i == n -1 :
+        return "Black"
+    else :
         return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 
 nb_fourmi = int(input("nombre de fourmis souhaité : "))
