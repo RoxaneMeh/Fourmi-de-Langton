@@ -20,8 +20,6 @@ F_img = image.load('Fond_marron.jpg')
 F_img = pygame.transform.scale(F_img, (longueur_e, largeur_e))
 F_img_fourmi = image.load('Fourmi_img.png')
 F_img_fourmi = pygame.transform.scale(F_img_fourmi, (400, 200))
-F_pancarte = image.load('Pancarte_f.png')
-F_pancarte = pygame.transform.scale(F_pancarte, (longueur_e/10, largeur_e/10))
 clock = pygame.time.Clock()
 fond = pygame.Surface((longueur_e,largeur_e))
 fond.fill("White")
@@ -229,11 +227,8 @@ def OuiNon(phrases, preced):
     window.blit(fond,(0,0))
     window.blit(F_img, (0, 0))
     window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
-    #window.blit(F_pancarte,(180,280))#Additionel pancarte
-    #window.blit(F_pancarte,(480,280))#
     for i in range(len(phrases)) :
         window.blit(med_font.render(phrases[i], True, "Black"), (100,50+i*40))
-    #window.blit(F_pancarte,(0,0))
     window.blit(bouton_oui.surface,  bouton_oui.pos)
     window.blit(bouton_non.surface,  bouton_non.pos)
     window.blit(bouton_retour.surface,  bouton_retour.pos)
