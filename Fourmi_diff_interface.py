@@ -429,7 +429,7 @@ def commandes():
 
 
 def ecran_daccueil():
-    bouton_originale = bouton("fourmi originale", longueur_e/2, largeur_e/2-200)
+    bouton_originale = bouton("Fourmi originale", longueur_e/2, largeur_e/2-200)
     bouton_parametres = bouton("Paramètres", longueur_e/2, largeur_e/2)
     bouton_commandes = bouton("Commandes", longueur_e/2, largeur_e/2 + 200)
     pygame.display.set_caption("accueil")
