@@ -2,17 +2,25 @@ import pygame
 from sys import exit
 import random
 from ecran_resol import InputBox
+from pygame import *
 pygame.init()
 
-maxi_font = pygame.font.SysFont(None, 100)
-large_font = pygame.font.SysFont(None,50)
-small_font = pygame.font.SysFont(None,25)
-med_font = pygame.font.SysFont(None,35)
+
+
+maxi_font = pygame.font.SysFont("Courier New", 80)
+large_font = pygame.font.SysFont("Courier New",31)
+cpt_font = pygame.font.SysFont("Courier New",35, True)
+small_font = pygame.font.SysFont("Courier New",18, bold = True)
+med_font = pygame.font.SysFont("Courier New",25, bold = True)
 #longueur_e = 1400
 #largeur_e = 800
 #window = pygame.display.set_mode((longueur_e,largeur_e))
 window = pygame.display.set_mode()
 longueur_e, largeur_e = window.get_size()
+F_img = image.load('Fond_marron.jpg')
+F_img = pygame.transform.scale(F_img, (longueur_e, largeur_e))
+F_img_fourmi = image.load('Fourmi_img.png')
+F_img_fourmi = pygame.transform.scale(F_img_fourmi, (400, 200))
 clock = pygame.time.Clock()
 fond = pygame.Surface((longueur_e,largeur_e))
 fond.fill("White")
@@ -32,7 +40,7 @@ class ant :
         self.pos_nom = self.x - 10, self.y -30
         self.regles = regles #les règles ne sont plus les mêmes pour toutes les fourmis
         self.seq = seq
-        self.affichage_seq = small_font.render(f"{self.nom} : {self.seq}", True, "Black")
+        self.affichage_seq = med_font.render(f"{self.nom} : {self.seq}", True, "Black")
 
     @property
     def pos(self):
@@ -106,8 +114,7 @@ def getChoix():
         for fourmi in fourmis[:i] :
             window.blit(fourmi.img, (fourmi.x - cote_carre/2, fourmi.y - cote_carre/2)) #centre fourmi sur carreau
             fourmi.pos_nom = fourmi.x - 10, fourmi.y - 30 #positionne étiquette nom à coté de la fourmi (arbitraire)
-            affichage_nom = small_font.render(fourmi.nom,True,"Red", "Pink")
-            window.blit(affichage_nom, fourmi.pos_nom)
+            window.blit(fourmi.affichage_nom, fourmi.pos_nom)
 
         window.blit(texte,(0,0))
         pygame.display.update()
@@ -179,7 +186,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
                 if not twin :
                     window.blit(fourmi.affichage_seq, (0, 20*fourmis.index(fourmi) + 50))
 
-            affichage_compte = large_font.render(str(compte),True,"Black")
+            affichage_compte = cpt_font.render(str(compte),True,"Black")
             window.blit(affichage_compte,(0,0))
             if twin :
                 window.blit(affichage_sequence,(0,50))
@@ -193,7 +200,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
 
 class bouton :
 
-    def __init__(self, texte, centre_x, centre_y, couleur = "Blue"):
+    def __init__(self, texte, centre_x, centre_y, couleur = "Brown"):
         self.texte = texte
         self.l, bouton.h = large_font.size(texte)
         self.x = centre_x - self.l/2
@@ -210,13 +217,15 @@ class bouton :
 
 
 
-bouton_retour = bouton("<--", 20, 20, couleur = "Black")
+bouton_retour = bouton(" <--", 20, 20, couleur = "Black")
+
 
 def OuiNon(phrases, preced):
-    bouton_oui = bouton("  OUI  ", 200, 300, couleur = "Green")
-    bouton_non = bouton(" NON ", 500, 300, couleur = "Red")
+    bouton_oui = bouton(" OUI ", 200, 300, couleur = (0,120,50)) 
+    bouton_non = bouton(" NON ", 500, 300, couleur = "Brown") 
     fond.fill("White")
-    window.blit(fond,(0,0))
+    window.blit(F_img, (0, 0))
+    window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
     for i in range(len(phrases)) :
         window.blit(med_font.render(phrases[i], True, "Black"), (100,50+i*40))
     window.blit(bouton_oui.surface,  bouton_oui.pos)
@@ -236,10 +245,9 @@ def OuiNon(phrases, preced):
                     return False
                 if bouton_retour.collide(event.pos) :
                     preced()
-                    break #utile ?
+                    break
 
 def ChoixClavier(texte, inputB, preced):
-    #encadre = pygame.Rect(90, 40 , med_font.size(texte)[0] + 10, med_font.size(texte)[1] + 20 )
 
     while inputB.reponse == None :
         for event in pygame.event.get():
@@ -250,10 +258,10 @@ def ChoixClavier(texte, inputB, preced):
                 preced()
             inputB.handle_event(event)
         inputB.update()
-        window.blit(fond, (0,0))
+        window.blit(F_img, (0, 0))
+        window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
         inputB.draw(window)
         window.blit(bouton_retour.surface,  bouton_retour.pos)
-        #pygame.draw.rect(window,"Black", encadre, 2)
         window.blit(med_font.render(texte, True, "Black"), (100,50))
         pygame.display.update()
     return inputB.reponse
@@ -271,7 +279,7 @@ def ChoixFourmi():
 
     nb_fourmi = int(ChoixClavier(texte, input_fourmi, ChoixVitesse))
 
-    f = open("listePrenoms.txt", "r") #fichier contenant des milliers de noms prédéfinis
+    f = open("liste_Prenoms.txt", "r") #fichier contenant des milliers de noms prédéfinis
     noms = []
     for i in range(nb_fourmi):
         noms.append(f.readline().strip()) #attribue le i-ème nom à la i-ème fourmi (pas aléatoire) pour les distinguer
@@ -309,7 +317,6 @@ def ChoixFourmi():
                 print(input_seq.exp)
                 sequence = ChoixClavier(texte, input_seq, ChoixFourmi)
             listeCD = [(couleurs[i],sequence[i]) for i in range(nb_dep)]
-            #listeCD = [(couleur(i, nb_dep),sequence[i]) for i in range(nb_dep)]
             fourmis.append(ant(sequence, listeCD, noms[k], x = (1+2*k)*(((longueur_e/(nb_fourmi*2))//cote_carre)*cote_carre), y = largeur_e/2))
 
     if OuiNon(["Souhaitez-vous choisir les positions initiales ?"],ChoixFourmi) :
@@ -322,7 +329,7 @@ def ChoixVitesse():
 
     global vitesse
 
-    texte = "La vitesse sera modifiable par la suite à l'aide des touches F (faster) et S (slower). "
+    texte = "La vitesse sera modifiable à l'aide des touches F (faster) et S (slower). "
     input_vitesse = InputBox(100, 200, 140, 32, "vitesse initiale (en fps) :", exp = "[0-9]+")
     vitesse = int(ChoixClavier(texte, input_vitesse, ChoixCarre))
     ChoixFourmi()
@@ -334,18 +341,12 @@ def ChoixCarre() :
     global cote_carre
     global ant_img
 
-    bouton_petit = bouton(" PETIT ", 150, 300, couleur = "Black")
-    bouton_moyen = bouton(" MOYEN ", 350, 300, couleur = "Black")
-    bouton_grand = bouton(" GRAND ", 550, 300, couleur = "Black")
-
-    window.blit(fond,(0,0))
-    encadre = pygame.Rect(90, 40, 410, 40)
-    pygame.draw.rect(window,"Black", encadre, 2)
-    window.blit(med_font.render("Choississez la taille des carreaux", True, "Black"), (100,50))
-    window.blit(bouton_petit.surface,  bouton_petit.pos)
-    window.blit(bouton_moyen.surface,  bouton_moyen.pos)
-    window.blit(bouton_grand.surface,  bouton_grand.pos)
-    window.blit(bouton_retour.surface,  bouton_retour.pos)
+    boutons = [bouton(" PETIT ", 150, 300, couleur = "Black"), bouton(" MOYEN ", 350, 300, couleur = "Black"), bouton(" GRAND ", 550, 300, couleur = "Black"), bouton_retour]
+    window.blit(F_img, (0, 0))
+    window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
+    window.blit(med_font.render("Choississez la taille des carreaux.", True, "Black"), (100,50))
+    for B in boutons :
+        window.blit(B.surface,  B.pos)
     pygame.display.update()
     A = 0
     while A == 0 :
@@ -356,17 +357,17 @@ def ChoixCarre() :
 
             if event.type == pygame.MOUSEBUTTONDOWN :
 
-                if bouton_petit.collide(event.pos) :
+                if boutons[0].collide(event.pos) :
                     cote_carre = 2
                     A = 1
 
-                if bouton_moyen.collide(event.pos) :
+                if boutons[1].collide(event.pos) :
                     cote_carre = 10
                     A = 1
 
-                if  bouton_grand.collide(event.pos) :
+                if  boutons[2].collide(event.pos) :
                     cote_carre = 25
-                    A =1
+                    A = 1
 
                 if bouton_retour.collide(event.pos) :
                     interactifQuestion()
@@ -380,6 +381,7 @@ def interactifQuestion():
 
     global interactif, nom_mode
 
+
     phrases = ["Le mode interactif consiste à cliquer sur l'écran pour ajouter des carreaux noirs.", "Si la case est déjà noire, elle devient blanche.", "Souhaitez-vous passer en mode interactif ?"]
     interactif = OuiNon(phrases, ecran_daccueil)
     if interactif :
@@ -389,8 +391,9 @@ def interactifQuestion():
     ChoixCarre()
 
 def commandes():
-    comm = ["A : affiche ou efface les details autres que le fond coloré", "S : ralentit", "F : accélère. Si la vitesse est trop élevée, n'affiche le résultat qu'après un certain nombre de déplacements", "espace : met en pause ou relance", "échappe : retourne à l'écran d'acceuil depuis écran fourmis", "x : quitte le programme", "bouton <-- : retourne au paramétrage précédent", "Cliquer sur les zones de texte pour entrer une réponse"]
-    window.blit(fond,(0,0))
+    comm = ["A : affiche ou efface les details autres que le fond coloré", "S : ralentit", "F : accélère. Si trop rapide, affichage mis à jour ponctuellement", "espace : met en pause ou relance", "échappe : retourne à l'écran d'acceuil depuis écran fourmis", "x : quitte le programme", "bouton <-- : retourne au paramétrage précédent", "Cliquer sur les zones de texte pour entrer une réponse"]
+    window.blit(F_img, (0, 0))
+    window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
     window.blit(bouton_retour.surface,  bouton_retour.pos)
     for i in range(len(comm)) :
          window.blit(med_font.render(comm[i], True, "Black"), (100,50*(i+1)))
@@ -407,13 +410,14 @@ def commandes():
 
 
 def ecran_daccueil():
-    bouton_originale = bouton("fourmi originale", longueur_e/2, largeur_e/2-200)
+    bouton_originale = bouton("Fourmi originale", longueur_e/2, largeur_e/2-200)
     bouton_parametres = bouton("Paramètres", longueur_e/2, largeur_e/2)
     bouton_commandes = bouton("Commandes", longueur_e/2, largeur_e/2 + 200)
     pygame.display.set_caption("accueil")
     fond.fill("White")
-    window.blit(fond,(0,0))
-    window.blit(maxi_font.render("ÉCRAN D'ACCUEIL", True, "Blue"), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 0))
+    window.blit(F_img, (0, 0))
+    window.blit(F_img_fourmi, (longueur_e-450, largeur_e-350))
+    window.blit(maxi_font.render("FOURMI DE LANGTON", True, "Brown"), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 0))
     window.blit(bouton_originale.surface,  bouton_originale.pos)
     window.blit(bouton_parametres.surface,  bouton_parametres.pos)
     window.blit(bouton_commandes.surface,  bouton_commandes.pos)
