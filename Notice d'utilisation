@@ -1,0 +1,14 @@
+Notice d'utilisation
+
+Afin de lancer le programme informatique, il faut:
+  -> Télécharger tous les fichiers, y compris les images et les fichiers texte
+  -> Installer pygame sur votre ordinateur si cela n'a pas été déjà fait
+  -> Exécuter le code via un interprétateur python (VSC par exemple)
+Notre programme lance un menu comportant plusieurs options.
+- Le bouton "Commandes" liste les différentes instructions que vous pouvez effectuer.
+Pour une utilisation optimale du programme, nous vous conseillons de la consulter au préalable.
+- "Fourmi originale" exécute le déplacement de base de la fourmi de Langton.
+- "Paramètres" vous permet de choisir librement différents modes de réalisation de la fourmi de Langton.
+- "Bibliothèque" répertérorie des déplacements esthétiques que vous pouvez exécuter??? 
+
+Il ne vous reste désormais plus qu'à tester notre fourmi !
