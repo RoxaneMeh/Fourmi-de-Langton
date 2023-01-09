@@ -9,6 +9,6 @@ Notre programme lance un menu comportant plusieurs options.
 Pour une utilisation optimale du programme, nous vous conseillons de la consulter au préalable.
 - "Fourmi originale" exécute le déplacement de base de la fourmi de Langton.
 - "Paramètres" vous permet de choisir librement différents modes de réalisation de la fourmi de Langton.
-- "Bibliothèque" répertérorie des déplacements esthétiques que vous pouvez exécuter??? 
+- "Bibliothèque" est un répertoire d'extensions des fourmis de Langton que vous pouvez visualiser.
 
 Il ne vous reste désormais plus qu'à tester notre fourmi !
