@@ -288,7 +288,7 @@ def ChoixFourmi():
 
     nb_fourmi = int(ChoixClavier(texte, input_fourmi, ChoixVitesse))
 
-    f = open("fichier_noms.txt", "r") #fichier contenant des milliers de noms prédéfinis
+    f = open("liste_prenoms.txt", "r") #fichier contenant des milliers de noms prédéfinis
     noms = []
     for i in range(nb_fourmi):
         noms.append(f.readline().strip()) #attribue le i-ème nom à la i-ème fourmi (pas aléatoire) pour les distinguer
