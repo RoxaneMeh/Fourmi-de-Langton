@@ -3,9 +3,9 @@ import re
 
 pg.init()
 screen = pg.display.set_mode((640, 480))
-COLOR_INACTIVE = pg.Color('lightskyblue3')
-COLOR_ACTIVE = pg.Color('dodgerblue2')
-FONT = pg.font.Font(None, 32)
+COLOR_INACTIVE = "Grey"
+COLOR_ACTIVE = (96,96,96)
+FONT = pg.font.SysFont("Courier", 25, True)
 
 
 class InputBox:
@@ -44,7 +44,7 @@ class InputBox:
                     if saisie_motif(self.exp,self.text) == False:
                         self.ERREUR = True
                         self.text = "Saisissez une entrée valide"
-                        self.color_text = "Red"
+                        self.color_text = (204, 0, 0)
 
                     else:
                         print(self.text)
@@ -73,30 +73,5 @@ def saisie_motif(e, chaine):### expression rationnelle, vérifie zone de texte
         return False
     return m.end() == len(chaine)
 
-
-def QuestionClavier(input_boxes):
-    clock = pg.time.Clock()
-    done = False
-
-    while not done:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                done = True
-            for box in input_boxes:
-                if box.reponse == None :
-                    box.handle_event(event)
-
-
-        for box in input_boxes:
-            box.update()
-
-
-        screen.fill((30, 30, 30))
-
-        for box in input_boxes:
-            box.draw(screen)
-
-        pg.display.flip()
-        clock.tick(30)
 
 
