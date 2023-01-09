@@ -223,7 +223,7 @@ bouton_retour = bouton(" <--", 20, 20, couleur = "Black")
 
 
 def OuiNon(phrases, preced):
-    bouton_oui = bouton(" OUI ", 200, 300, couleur = "Green") #bouton_oui = bouton("  OUI  ", 200, 300, couleur = "Green")
+    bouton_oui = bouton(" OUI ", 200, 300, couleur = (0,120,50)) #bouton_oui = bouton("  OUI  ", 200, 300, couleur = "Green")
     bouton_non = bouton(" NON ", 500, 300, couleur = "Red") #bouton_non = bouton(" NON ", 500, 300, couleur = "Red")
     fond.fill("White")
     window.blit(fond,(0,0))
