@@ -9,6 +9,13 @@ Notre programme lance un menu comportant plusieurs options.
 Pour une utilisation optimale du programme, nous vous conseillons de la consulter au préalable.
 - "Fourmi originale" exécute le déplacement de base de la fourmi de Langton.
 - "Paramètres" vous permet de choisir librement différents modes de réalisation de la fourmi de Langton.
-- "Bibliothèque" est un répertoire d'extensions de fourmis de Langton que vous pouvez visualiser.
+- "Bibliothèque" regroupe plusieurs extensions prédédefinies des fourmis de Langton montrant des figures intéressantes. 
+La figure colonie vise à étudier les interactions entre fourmis sous une forme originale.
 
 Il ne vous reste désormais plus qu'à tester notre fourmi !
+
+
+N.B. Un fichier hexa_ant_patterns est présent dans le dossier, il programme le déplacement d'une fourmi sur une grille hexagonale. Il n'est cependant pas introduit 
+dans le programme principal et n'est que présenté sous une version "bêta" représentant le déplacement "L2NNL1L2L1". En effet, l'implémentation d'autres 
+déplacements du type "L1L2NUL2L1R2" (voir Wikipédia) ne représente pas la figure souhaitée. 
+Il semble y avoir un problème dans la façon dont le déplacement de la fourmi est exécuté, c'est pourquoi ce module n'est encore qu'un test que nous n'implémentons que dans la bibliothèque.
