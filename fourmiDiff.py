@@ -484,6 +484,3 @@ def ecran_daccueil():
 
 
 ecran_daccueil()
-
-
-#problème : compte = 0 trop rapide (à peine visible avant passage à 1)
