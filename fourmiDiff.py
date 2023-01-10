@@ -40,7 +40,7 @@ class ant :
         self.pos_nom = self.x - 10, self.y -30
         self.regles = regles #les règles ne sont plus les mêmes pour toutes les fourmis
         self.seq = seq
-        self.affichage_seq = med_font.render(f"{self.nom} : {self.seq}", True, "Black")
+        self.affichage_seq = small_font.render(f"{self.nom} : {self.seq}", True, "Black")
 
     @property
     def pos(self):
@@ -125,7 +125,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
     pygame.display.set_caption(nom_mode)
     Run = True #variable pour mettre en pause
     Aff = True #variable pour afficher ou non les détails autres que le fond
-    plan = {}
+    plan = {} #le dictionnaire permet aux fourmis de sortir de l'écran mais n'est pas forcément une structure très efficace
     compte = -1
     nb_dep = len(fourmis[0].regles)
     while True :
