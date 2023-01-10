@@ -211,7 +211,7 @@ class bouton :
             return True
         return False
 
-#Attention presque tout est mis en variable globale parce que flemme, pour l'instant en tout cas
+#Attention presque tout est mis en variable globale
 
 
 
