@@ -43,7 +43,7 @@ class ant :
         self.pos_nom = self.x - 10, self.y -30
         self.regles = regles #les règles ne sont plus les mêmes pour toutes les fourmis
         self.seq = seq
-        self.affichage_seq = med_font.render(f"{self.nom} : {self.seq}", True, "Black")
+        self.affichage_seq = small_font.render(f"{self.nom} : {self.seq}", True, "Black")
 
     @property
     def pos(self):
