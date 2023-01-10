@@ -79,7 +79,7 @@ class Ant():
         self.y = (self.y + dy) % self.app.ROWS
 
 class App():
-    def __init__(self,WIDTH=1375,HEIGHT=715,CELL_SIZE=3,COLOR=(0,0,0),SPEED=1000):
+    def __init__(self,WIDTH=1400,HEIGHT=800,CELL_SIZE=3,COLOR=(0,0,0),SPEED=1000):
         pygame.init()
         self.screen = pygame.display.set_mode([WIDTH,HEIGHT])
         self.clock = pygame.time.Clock()
@@ -93,10 +93,16 @@ class App():
         self.ant = Ant(app=self, pos=[self.COLS//3,self.ROWS//2 + self.ROWS//6],color=color[1]) 
 
     def run(self):
-        while True:
+        A = True
+        while A :
             self.ant.run()
+            
+            for event in pygame.event.get() :
+                if event.type == pygame.QUIT :
+                    exit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE :
+                    A = False
 
-            [exit() for i in pygame.event.get() if i.type == pygame.QUIT]
             pygame.display.flip()
             self.clock.tick(self.speed)
 
