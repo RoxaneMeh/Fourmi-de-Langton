@@ -26,7 +26,7 @@ class Ant():
 
 
 class App():
-    def __init__(self,seq,CELL_SIZE=6,COLOR=(0,0,0),SPEED=120,NUMBER=400):
+    def __init__(self,CELL_SIZE=6,COLOR=(0,0,0),SPEED=120,NUMBER=400):
         pygame.init()
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         WIDTH, HEIGHT = self.screen.get_size()
