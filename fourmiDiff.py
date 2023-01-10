@@ -17,11 +17,11 @@ large_font = pygame.font.SysFont("Courier New",31)
 cpt_font = pygame.font.SysFont("Courier New",35, True)
 small_font = pygame.font.SysFont("Courier New",18, bold = True)
 med_font = pygame.font.SysFont("Courier New",25, bold = True)
-longueur_e = 1400
-largeur_e = 800
-window = pygame.display.set_mode((longueur_e,largeur_e))
-#window = pygame.display.set_mode()
-#longueur_e, largeur_e = window.get_size()
+#longueur_e = 1400
+#largeur_e = 800
+#window = pygame.display.set_mode((longueur_e,largeur_e))
+window = pygame.display.set_mode()
+longueur_e, largeur_e = window.get_size()
 F_fond_fourmi = pygame.image.load('Fond_fourmi.png')
 F_fond_fourmi = pygame.transform.scale(F_fond_fourmi, (longueur_e, largeur_e))
 clock = pygame.time.Clock()
