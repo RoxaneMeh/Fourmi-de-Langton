@@ -12,15 +12,12 @@ pygame.init()
 
 
 
-maxi_font = pygame.font.SysFont("Courier New", 80)
+maxi_font = pygame.font.SysFont("Courier New", 80,bold=True)
 large_font = pygame.font.SysFont("Courier New",31)
 cpt_font = pygame.font.SysFont("Courier New",35, True)
 small_font = pygame.font.SysFont("Courier New",18, bold = True)
 med_font = pygame.font.SysFont("Courier New",25, bold = True)
-#longueur_e = 1400
-#largeur_e = 800
-#window = pygame.display.set_mode((longueur_e,largeur_e))
-window = pygame.display.set_mode()
+window = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 longueur_e, largeur_e = window.get_size()
 F_fond_fourmi = pygame.image.load('Fond_fourmi.png')
 F_fond_fourmi = pygame.transform.scale(F_fond_fourmi, (longueur_e, largeur_e))
@@ -43,7 +40,7 @@ class ant :
         self.pos_nom = self.x - 10, self.y -30
         self.regles = regles #les règles ne sont plus les mêmes pour toutes les fourmis
         self.seq = seq
-        self.affichage_seq = small_font.render(f"{self.nom} : {self.seq}", True, "Black")
+        self.affichage_seq = med_font.render(f"{self.nom} : {self.seq}", True, "Black")
 
     @property
     def pos(self):
@@ -128,7 +125,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
     pygame.display.set_caption(nom_mode)
     Run = True #variable pour mettre en pause
     Aff = True #variable pour afficher ou non les détails autres que le fond
-    plan = {} #le dictionnaire permet aux fourmis de sortir de l'écran mais n'est pas forcément une structure très efficace
+    plan = {}
     compte = -1
     nb_dep = len(fourmis[0].regles)
     while True :
@@ -201,7 +198,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
 
 class bouton :
 
-    def __init__(self, texte, centre_x, centre_y, couleur = "Brown"):
+    def __init__(self, texte, centre_x, centre_y, couleur = (88,41,0)):
         self.texte = texte
         self.l, bouton.h = large_font.size(texte)
         self.x = centre_x - self.l/2
@@ -214,7 +211,7 @@ class bouton :
             return True
         return False
 
-#Attention presque tout est mis en variable globale
+#Attention presque tout est mis en variable globale parce que flemme, pour l'instant en tout cas
 
 
 
@@ -424,11 +421,6 @@ def bibliotheque():
                 if bouton_colonies.collide(event.pos):
                     colonies_painting_ant.App().run()
 
-
-
-
-
-
 def commandes():
     comm = ["A : affiche ou efface les details autres que le fond coloré", "S : ralentit", "F : accélère. Si trop rapide, affichage mis à jour ponctuellement", "espace : met en pause ou relance", "échappe : retourne à l'écran d'acceuil depuis écran fourmis", "x : quitte le programme", "bouton <-- : retourne au paramétrage précédent", "Cliquer sur les zones de texte pour entrer une réponse"]
     window.blit(F_fond_fourmi, (0, 0))
@@ -452,14 +444,16 @@ def ecran_daccueil():
     bouton_parametres = bouton("Paramètres", longueur_e/2, largeur_e/2 - 100)
     bouton_bibliotheque = bouton("Bibliothèque", longueur_e/2, largeur_e/2)
     bouton_commandes = bouton("Commandes", longueur_e/2, largeur_e/2 + 100)
+    bouton_quitter = bouton("QUITTER", longueur_e/2, largeur_e/2 + 200, couleur = "Brown")
     pygame.display.set_caption("accueil")
     fond.fill("White")
     window.blit(F_fond_fourmi, (0, 0))
-    window.blit(maxi_font.render("FOURMI DE LANGTON", True, "Brown"), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 0))
+    window.blit(maxi_font.render("FOURMI DE LANGTON", True, (88,41,0)), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 40))
     window.blit(bouton_originale.surface,  bouton_originale.pos)
     window.blit(bouton_parametres.surface,  bouton_parametres.pos)
     window.blit(bouton_bibliotheque.surface,  bouton_bibliotheque.pos)
     window.blit(bouton_commandes.surface,  bouton_commandes.pos)
+    window.blit( bouton_quitter.surface,   bouton_quitter.pos)
     pygame.display.update()
     while True :
         for event in pygame.event.get():
@@ -482,6 +476,10 @@ def ecran_daccueil():
                 elif bouton_commandes.collide(event.pos) :
                     pygame.display.set_caption("Commandes")
                     commandes()
+                elif bouton_quitter.collide(event.pos) :
+                    pygame.quit()
+                    exit()
+                
 
 
 
