@@ -81,7 +81,7 @@ class Ant():
 class App():
     def __init__(self,WIDTH=1400,HEIGHT=800,CELL_SIZE=3,COLOR=(0,0,0),SPEED=1000):
         pygame.init()
-        self.screen = pygame.display.set_mode([WIDTH,HEIGHT])
+        self.screen = pygame.display.set_mode()
         self.clock = pygame.time.Clock()
         self.screen.fill(COLOR)
         self.speed = SPEED
