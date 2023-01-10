@@ -79,9 +79,10 @@ class Ant():
         self.y = (self.y + dy) % self.app.ROWS
 
 class App():
-    def __init__(self,WIDTH=1400,HEIGHT=800,CELL_SIZE=3,COLOR=(0,0,0),SPEED=1000):
+    def __init__(self,seq,CELL_SIZE=3,COLOR=(0,0,0),SPEED=100000000):
         pygame.init()
-        self.screen = pygame.display.set_mode()
+        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        WIDTH, HEIGHT = self.screen.get_size()
         self.clock = pygame.time.Clock()
         self.screen.fill(COLOR)
         self.speed = SPEED
