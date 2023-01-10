@@ -393,8 +393,8 @@ def bibliotheque():
     while True :
         #Motifs pour la grille rectangulaire
         boutonsBase = {"DGD" : bouton("DGD", 300, 300, couleur = "Black"), "DGGD" : bouton("DGGD", 300, 350, couleur = "Black"), "GGDD" : bouton("GGDD", 300, 400, couleur = "Black"), "GDDDDDGGD" : bouton(" GDDDDDGGD ", 300, 450, couleur = "Black"),"GGDDDGDGDGGD" : bouton(" GGDDDGDGDGGD ", 550, 300, couleur = "Black"), "DDGGGDGGGDDD" : bouton(" DDGGGDGGGDDD ", 550, 350, couleur = "Black"), "DGGGGDDDGGG" : bouton(" DGGGGDDDGGG ", 550, 400, couleur = "Black"), "GGGGGGGDDDGD" : bouton(" GGGGGGGDDDGD ", 550, 450, couleur = "Black")}
-        bouton_hexagone = bouton("L2NNL1L2L1 (bêta)",900, 375, couleur = "Red")
-        bouton_colonies = bouton(" Interaction de 2 colonies ", 700, 450, couleur = "Black")
+        bouton_hexagone = bouton("L2NNL1L2L1 (bêta)",900, 400, couleur = "Brown")
+        bouton_colonies = bouton(" Interaction de 2 colonies ", 500, 500, couleur = "Black")
         window.blit(F_fond_fourmi, (0, 0))
         window.blit(med_font.render("Sélectionner le motif que vous souhaitez visualiser.", True, "Black"), (100,50))
         for B in boutonsBase.values() :
@@ -420,11 +420,11 @@ def bibliotheque():
 
                 if bouton_retour.collide(event.pos) :
                     ecran_daccueil()
-                    
+
                 if bouton_colonies.collide(event.pos):
                     colonies_painting_ant.App().run()
-                    
-               
+
+
 
 
 
