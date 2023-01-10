@@ -19,7 +19,7 @@ small_font = pygame.font.SysFont("Courier New",18, bold = True)
 med_font = pygame.font.SysFont("Courier New",25, bold = True)
 window = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 longueur_e, largeur_e = window.get_size()
-#certain ordinateur rencontrent des problemes d'affichage
+#certains ordinateurs rencontrent des problemes d'affichage
 #longueur_e = 1400
 #largeur_e = 800
 #window = pygame.display.set_mode((longueur_e,largeur_e))
