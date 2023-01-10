@@ -128,7 +128,7 @@ def start(nom_mode, interactif, cote_carre, vitesse, fourmis, twin) :
     pygame.display.set_caption(nom_mode)
     Run = True #variable pour mettre en pause
     Aff = True #variable pour afficher ou non les détails autres que le fond
-    plan = {}
+    plan = {} #le dictionnaire permet aux fourmis de sortir de l'écran n'est pas forcément une structuretrès efficace
     compte = -1
     nb_dep = len(fourmis[0].regles)
     while True :
