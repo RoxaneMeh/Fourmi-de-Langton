@@ -3,6 +3,19 @@ from sys import exit
 import random
 from ecran_resol import InputBox
 from pygame import *
+
+#importation des fichiers pour la bibliothèque
+import rlr_ant
+import rllr_ant
+import llrr_ant
+import lrrrrrllr_ant
+import llrrrlrlrllr_ant
+import rrlllrlllrrr_ant
+import rllllrrrlll_ant
+import lllllllrrrlr_ant
+import colonies_painting_ant
+import l2nnl1l2l1_ant
+
 pygame.init()
 
 
@@ -385,6 +398,90 @@ def interactifQuestion():
         nom_mode = "mode classique"
     ChoixCarre()
 
+def bibliotheque():
+
+    #Motifs pour la grille rectangulaire
+    bouton_rlr = bouton(" DGD ", 300, 300, couleur = "Black")
+    bouton_rllr = bouton(" DGGD ", 300, 350, couleur = "Black")
+    bouton_llrr = bouton(" GGDD ", 300, 400, couleur = "Black")
+    bouton_lrrrrrllr = bouton(" GDDDDDGGD ", 300, 450, couleur = "Black")
+    bouton_llrrrlrlrllr = bouton(" GGDDDGDGDGGD ", 550, 300, couleur = "Black")
+    bouton_rrlllrlllrrr = bouton(" DDGGGDGGGDDD ", 550, 350, couleur = "Black")
+    bouton_rllllrrrlll = bouton(" DGGGGDDDGGG ", 550, 400, couleur = "Black")
+    bouton_lllllllrrrlr = bouton(" GGGGGGGDDDGD ", 550, 450, couleur = "Black")
+    bouton_colonies = bouton(" Interaction de 2 colonies ", 700, 450, couleur = "Black")
+    bouton_hexagone = bouton("L2NNL1L2L1 (bêta)",900, 375, couleur = "Red")
+
+    window.blit(fond,(0,0))
+    window.blit(F_fond_fourmi, (0, 0))
+    encadre = pygame.Rect(90, 40, 410, 40)
+    pygame.draw.rect(window,"Black", encadre, 2)
+    window.blit(med_font.render("Sélectionner le motif que vous souhaitez visualiser", True, "Black"), (100,50))
+    window.blit(bouton_rlr.surface,  bouton_rlr.pos)
+    window.blit(bouton_rllr.surface,  bouton_rllr.pos)
+    window.blit(bouton_llrr.surface,  bouton_llrr.pos)
+    window.blit(bouton_lrrrrrllr.surface,  bouton_lrrrrrllr.pos)
+    window.blit(bouton_llrrrlrlrllr.surface,  bouton_llrrrlrlrllr.pos)
+    window.blit(bouton_rrlllrlllrrr.surface,  bouton_rrlllrlllrrr.pos)
+    window.blit(bouton_rllllrrrlll.surface,  bouton_rllllrrrlll.pos)
+    window.blit(bouton_lllllllrrrlr.surface,  bouton_lllllllrrrlr.pos)
+    window.blit(bouton_colonies.surface,  bouton_colonies.pos)
+    window.blit(bouton_hexagone.surface,  bouton_hexagone.pos)
+    window.blit(bouton_retour.surface,  bouton_retour.pos)
+    pygame.display.update()
+    A = 0
+    while A == 0 :
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT :
+                pygame.quit()
+                exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN :
+                if bouton_rlr.collide(event.pos) :
+                    A = 1
+                if bouton_rllr.collide(event.pos) :
+                    A = 2
+                if bouton_llrr.collide(event.pos) :
+                    A = 3
+                if bouton_lrrrrrllr.collide(event.pos) :
+                    A = 4
+                if bouton_llrrrlrlrllr.collide(event.pos) :
+                    A = 5
+                if bouton_rrlllrlllrrr.collide(event.pos) :
+                    A = 6
+                if bouton_rllllrrrlll.collide(event.pos) :
+                    A = 7
+                if bouton_lllllllrrrlr.collide(event.pos) :
+                    A = 8
+                if bouton_colonies.collide(event.pos):
+                    A = 9
+                if bouton_hexagone.collide(event.pos):
+                    A = 10
+                if bouton_retour.collide(event.pos) :
+                    interactifQuestion()
+                    A =11
+    if A == 1:
+        rlr_ant.App().run()
+    if A == 2:
+        rllr_ant.App().run()
+    if A == 3:
+        llrr_ant.App().run()
+    if A == 4:
+        lrrrrrllr_ant.App().run()
+    if A == 5:
+        llrrrlrlrllr_ant.App().run()
+    if A == 6:
+        rrlllrlllrrr_ant.App().run()
+    if A == 7:
+        rllllrrrlll_ant.App().run()
+    if A == 8:
+        lllllllrrrlr_ant.App().run()
+    if A == 9:
+        colonies_painting_ant.App().run()
+    if A == 10:
+        l2nnl1l2l1_ant.App().run()
+
+
 def commandes():
     comm = ["A : affiche ou efface les details autres que le fond coloré", "S : ralentit", "F : accélère. Si trop rapide, affichage mis à jour ponctuellement", "espace : met en pause ou relance", "échappe : retourne à l'écran d'acceuil depuis écran fourmis", "x : quitte le programme", "bouton <-- : retourne au paramétrage précédent", "Cliquer sur les zones de texte pour entrer une réponse"]
     window.blit(F_fond_fourmi, (0, 0))
@@ -406,6 +503,7 @@ def commandes():
 def ecran_daccueil():
     bouton_originale = bouton("Fourmi originale", longueur_e/2, largeur_e/2-200)
     bouton_parametres = bouton("Paramètres", longueur_e/2, largeur_e/2)
+    bouton_bibliotheque = bouton("Bibliothèque", longueur_e/2, largeur_e/2+200/3)
     bouton_commandes = bouton("Commandes", longueur_e/2, largeur_e/2 + 200)
     pygame.display.set_caption("accueil")
     fond.fill("White")
@@ -413,6 +511,7 @@ def ecran_daccueil():
     window.blit(maxi_font.render("FOURMI DE LANGTON", True, "Brown"), (longueur_e/2 - maxi_font.size("ECREAN D'ACCUEIL")[0]/2 , 0))
     window.blit(bouton_originale.surface,  bouton_originale.pos)
     window.blit(bouton_parametres.surface,  bouton_parametres.pos)
+    window.blit(bouton_bibliotheque.surface,  bouton_bibliotheque.pos)
     window.blit(bouton_commandes.surface,  bouton_commandes.pos)
     pygame.display.update()
     while True :
@@ -430,7 +529,9 @@ def ecran_daccueil():
                 elif bouton_parametres.collide(event.pos) :
                     pygame.display.set_caption("Paramètres")
                     interactifQuestion()
-
+                elif bouton_bibliotheque.collide(event.pos):
+                    pygame.display.set_caption("Bibliothèque")
+                    bibliotheque()
                 elif bouton_commandes.collide(event.pos) :
                     pygame.display.set_caption("Commandes")
                     commandes()
